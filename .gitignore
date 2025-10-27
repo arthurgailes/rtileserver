@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.duckdb
+*.duckdb.wal
+debug.log
+man/*.Rd
+.DS_Store

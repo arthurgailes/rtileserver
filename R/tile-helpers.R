@@ -67,10 +67,11 @@ create_tile_query <- function(
   layer_name = "layer",
   properties = NULL
 ) {
+  # Build the property columns selection
   property_cols <- if (!is.null(properties)) {
     paste(properties, collapse = ",\n            ")
   } else {
-    "*"
+    sprintf("* EXCLUDE (%s)", geometry_column)
   }
 
   sprintf(

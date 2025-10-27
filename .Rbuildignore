@@ -1,0 +1,11 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.claude$
+^CLAUDE\.md$
+^IMPLEMENTATION_SUMMARY\.md$
+^debug\.log$
+^llm$
+^prompt$
+^vignette$
+^\.gitignore$
+^README\.md$
