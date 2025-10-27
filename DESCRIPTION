@@ -20,9 +20,13 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports:
     DBI,
-    httpuv
+    httpuv,
+    mapgl (>= 0.4.1)
 Suggests:
     duckdb,
+    duckspatial,
     RPostgres,
     sf,
     tinytest
+Remotes:
+    walkerke/mapgl

@@ -2,3 +2,5 @@
 if (interactive() && file.exists("dev.R")) {
   source("dev.R")
 }
+
+if (interactive()) library(devtools)
