@@ -1,6 +1,6 @@
 ---
 output: github_document
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -53,7 +53,7 @@ library(duckspatial)
 # library(rtileserver)
 devtools::load_all(".")
 
-# Load North Carolina counties data (built into sf package) 
+# Load North Carolina counties data (built into sf package)
 nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 
 nc_merc <- st_transform(nc, 3857)
@@ -94,7 +94,7 @@ The tiles can be used with any mapping library that supports Mapbox Vector Tiles
 
 Continuing from the Quick Start example:
 
-```{r}
+```{r eval=FALSE}
 library(mapgl)
 
 # Create interactive map
@@ -127,10 +127,17 @@ map <- maplibre(
 
 # Display the map
 map
-
-# Clean up when done
-# stop_tile_server(server)
 ```
+
+![North Carolina counties displayed as vector tiles](man/figures/README-map.png)
+
+When finished, disconnect the server:
+
+```{r eval=FALSE}
+# Clean up when done
+stop_tile_server(server, disconnect_db = TRUE)
+```
+
 
 
 ### PostgreSQL/PostGIS Example
@@ -213,12 +220,12 @@ Stop a running tile server.
    ```
 
 2. **Project to Web Mercator**: Transform data to EPSG:3857 before loading
-   ```{r}
+   ```r
    data_mercator <- sf::st_transform(data, 3857)
    ```
 
 3. **Limit properties**: Only include necessary columns in tiles
-   ```{r}
+   ```r
    server <- start_tile_server(con, "features", properties = c("id", "name"))
    ```
 
