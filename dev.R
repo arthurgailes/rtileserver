@@ -13,6 +13,7 @@ dev_check <- function() {
   devtools::check()
 }
 
+# currently only works fresh - not if loaded already
 dev_build <- function() tinytest::build_install_test()
 
 # === Individual commands ===
