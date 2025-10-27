@@ -1,8 +1,8 @@
 # Test start_tile_server and stop_tile_server
-
 # Skip if duckdb is not available
-exit_if_not(requireNamespace("duckdb", quietly = TRUE))
+tinytest::exit_if_not(requireNamespace("duckdb", quietly = TRUE))
 
+library(tinytest)
 library(duckdb)
 
 # Create a test database connection

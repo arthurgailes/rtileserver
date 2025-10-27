@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -25,7 +27,10 @@ Vector Tile Server for Spatial Databases in R
 
 ```{r eval=FALSE}
 # Install from GitHub
-devtools::install_github("arthurgailes/rtileserver")
+remotes::install_github("arthurgailes/rtileserver")
+
+# Examples require the development version of mapgl:
+# remotes::install_github("walkerke/mapgl")
 ```
 
 ## Features
@@ -45,12 +50,12 @@ library(DBI)
 library(duckdb)
 library(sf)
 library(duckspatial)
-library(rtileserver)
+# library(rtileserver)
+devtools::load_all(".")
 
-# Load North Carolina counties data (built into sf package)
+# Load North Carolina counties data (built into sf package) 
 nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 
-# Transform to Web Mercator (EPSG:3857) - REQUIRED for tile generation!
 nc_merc <- st_transform(nc, 3857)
 
 # Create DuckDB connection
@@ -79,8 +84,6 @@ print(server)
 # Tiles are now available at server$url
 # Use them in mapgl, Leaflet, Mapbox GL JS, etc.
 
-# Clean up when done
-stop_tile_server(server, disconnect_db = TRUE)
 ```
 
 ## Usage with Web Maps
@@ -94,14 +97,6 @@ Continuing from the Quick Start example:
 ```{r}
 library(mapgl)
 
-# Start tile server (if not already running)
-server <- start_tile_server(
-  con,
-  table_name = "nc_counties",
-  geometry_column = "geometry",
-  properties = c("NAME", "FIPS", "AREA")
-)
-
 # Create interactive map
 map <- maplibre(
   center = c(-79.5, 35.5),
@@ -110,7 +105,7 @@ map <- maplibre(
 ) |>
   add_vector_source(
     id = "nc-tiles",
-    url = server$url,
+    tiles = server$url,
     minzoom = 0,
     maxzoom = 14
   ) |>
@@ -134,14 +129,13 @@ map <- maplibre(
 map
 
 # Clean up when done
-stop_tile_server(server)
+# stop_tile_server(server)
 ```
 
 
 ### PostgreSQL/PostGIS Example
 
 ```{r, eval=FALSE}
-library(DBI)
 library(RPostgres)
 library(rtileserver)
 

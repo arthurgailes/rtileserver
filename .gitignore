@@ -7,3 +7,5 @@
 debug.log
 man/*.Rd
 .DS_Store
+CLAUDE.md
+.claude
